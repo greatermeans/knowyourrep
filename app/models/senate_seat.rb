@@ -1,0 +1,2 @@
+class SenateSeat < ApplicationRecord
+end
