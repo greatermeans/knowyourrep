@@ -8,7 +8,7 @@
 def run
   set_scraper
   get_reps
-  index_reps
+  index_polits
 end
 
 def set_scraper
@@ -24,16 +24,16 @@ def get_reps
   @raw_data = page.search('tr')
 end
 
-def index_reps
+def index_polits
   @raw_data.each_with_index do |row,idx|
-    row_data = row.children.text.split("\n")
-    set_values_for_polit(row_data) if invalid_data
-    @politician = Politician.create(data_hash_for_polit) if invalid_data
+    @row_data = row.children.text.split("\n")
+    set_values_for_polit(@row_data) if invalid_data(idx)
+    @politician = Politician.create(data_hash_for_polit) if invalid_data(idx)
   end
 end
 
-def invalid_data
-  idx > 91 && idx < 534 && idx != 527 && idx != 417
+def invalid_data(idx)
+  idx > 91 && idx < 527 && idx != 417
 end
 
 def data_hash_for_reps
@@ -44,28 +44,53 @@ end
 
 def data_hash_for_polit
   {first_name: @first_name, last_name: @last_name, party: @party,
-   religion: @religion, prior_experience: @prior_experience,
-   education: @education, birth_year: @birth_year, 
-   email: @email, state_id: @state, in_office?: @in_office
+   prior_experience: @prior_experience, education: @education, 
+   birth_year: @birth_year, email: @email, 
+   state: @state, in_office?: @in_office
    }
 end
 
-def set_values_for_polit(row_data)
+def set_values_for_polit
   binding.pry
-  @district = row_data[2]
-  @state = @district.split(' ').first
-  names_data = row_data[4].scan(/\w+/)
-  @first_name = names_data[1][0...(names_data[1].length / 2)]
-  @last_name = names_data[0]
-  @party = row_data[5]
-  @religion = row_data[6]
-  @prior_experience = row_data[7]
-  @education = [row_data[8],(row_data[9] if row_data[9].to_i == 0), (row_data[10] if row_data[10].to_i == 0)].compact.join(', ')
-  # @in_office_since = row_data[-2].to_i
-  @birth_year = row_data.last.to_i
+  @state_district = @row_data[2].split(' ')
+  create_states
+  create_districts
+  set_names_for_rep
+  if !@last_name.nil?
+    @party = @row_data[5]
+    @religion = @row_data[6]
+    @prior_experience = @row_data[7]
+    @education = [@row_data[8],(@row_data[9] if @row_data[9].to_i == 0), (@row_data[10] if @row_data[10].to_i == 0)].compact.join(', ')
+    @birth_year = @row_data.last.to_i
+  end
   # @senate_or_house = 'House of Representatives'
-  @email = "Rep.#{@last_name}@emailcongress.us"
-  binding.pry
+  # @in_office_since = @row_data[-2].to_i
+  # @email = "Rep.#{@last_name}@emailcongress.us"
 end
+
+def create_districts
+  @district = District.create(name: @state_district.last, state: @state)
+end
+
+def create_states
+  @state = [@state_district.first, (@state_district[1] if @state_district[1].to_i == 0)].compact.join(' ')
+  @state = State.create(name: @state)
+end
+
+def create_rep_seats
+  RepresentativeSeat.create(politician: @politician, district: @district)
+end
+
+def set_names_for_polit
+  names_data = @row_data[4].scan(/\w+/)
+  return if names_data.count == 1
+  @last_name = names_data[0]
+  if names_data.length > 3
+    @first_name = names_data[1] + names_data[2]
+  else
+    @first_name = names_data[1][0...(names_data[1].length / 2)]
+  end
+end
+
 
 run
