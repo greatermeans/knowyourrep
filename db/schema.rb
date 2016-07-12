@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160712174710) do
+ActiveRecord::Schema.define(version: 20160712193633) do
 
   create_table "districts", force: :cascade do |t|
     t.string   "name"
@@ -32,7 +32,6 @@ ActiveRecord::Schema.define(version: 20160712174710) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "party"
-    t.string   "religion"
     t.string   "prior_experience"
     t.string   "education"
     t.integer  "birth_year"
@@ -43,13 +42,23 @@ ActiveRecord::Schema.define(version: 20160712174710) do
     t.boolean  "in_office?",       default: false
   end
 
-  create_table "representatives", force: :cascade do |t|
+  create_table "representative_seats", force: :cascade do |t|
     t.integer  "politician_id"
     t.integer  "district_id"
-    t.integer  "in_office_since"
+    t.integer  "held_since"
     t.integer  "term_ends"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  create_table "senate_seats", force: :cascade do |t|
+    t.integer  "politician_id"
+    t.integer  "state_id"
+    t.integer  "class"
+    t.integer  "held_since"
+    t.integer  "term_ends"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
   create_table "states", force: :cascade do |t|
@@ -68,6 +77,7 @@ ActiveRecord::Schema.define(version: 20160712174710) do
     t.datetime "updated_at",     null: false
     t.integer  "zipcode"
     t.integer  "state_id"
+    t.integer  "district_id"
   end
 
 end

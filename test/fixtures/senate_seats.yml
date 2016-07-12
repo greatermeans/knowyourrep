@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  politician_id: 1
+  state_id: 1
+  class: 1
+  held_since: 1
+  term_ends: 1
+
+two:
+  politician_id: 1
+  state_id: 1
+  class: 1
+  held_since: 1
+  term_ends: 1
