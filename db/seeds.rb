@@ -6,9 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 def run
-	set_scraper
-	get_reps
-	index_reps
+  set_scraper
+  get_reps
+  index_reps
 end
 
 def set_scraper
@@ -27,28 +27,31 @@ end
 def index_reps
   @raw_data.each_with_index do |row,idx|
     row_data = row.children.text.split("\n")
-    binding.pry
-    set_values_for_reps(row_data) if idx > 91 && idx < 534 && idx != 527
-    Politician.create(data_hash_for_reps) if idx > 91 && idx < 534 && idx != 527
+    set_values_for_polit(row_data) if invalid_data
+    @politician = Politician.create(data_hash_for_polit) if invalid_data
   end
 end
 
-# def data_hash_for_reps
-#   {district: @district, state: @state, first_name: @first_name,
-#    last_name: @last_name, party: @party, religion: @religion,
-#    prior_experience: @prior_experience, education: @education,
-#    in_office_since: @in_office_since, birth_year: @birth_year,
-#    senate_or_house: @senate_or_house, email: @email}
-# end
-
-def data_hash_for_reps
-  {first_name: @first_name,
-   last_name: @last_name, party: @party, religion: @religion,
-   prior_experience: @prior_experience, education: @education, 
-   birth_year: @birth_year, email: @email}
+def invalid_data
+  idx > 91 && idx < 534 && idx != 527 && idx != 417
 end
 
-def set_values_for_reps(row_data)
+def data_hash_for_reps
+  {district_id: @district, politician_id: @politician,
+   in_office_since: @in_office_since,term_ends: @term_ends
+   }
+end
+
+def data_hash_for_polit
+  {first_name: @first_name, last_name: @last_name, party: @party,
+   religion: @religion, prior_experience: @prior_experience,
+   education: @education, birth_year: @birth_year, 
+   email: @email, state_id: @state, in_office?: @in_office
+   }
+end
+
+def set_values_for_polit(row_data)
+  binding.pry
   @district = row_data[2]
   @state = @district.split(' ').first
   names_data = row_data[4].scan(/\w+/)
@@ -62,6 +65,7 @@ def set_values_for_reps(row_data)
   @birth_year = row_data.last.to_i
   # @senate_or_house = 'House of Representatives'
   @email = "Rep.#{@last_name}@emailcongress.us"
+  binding.pry
 end
 
 run
