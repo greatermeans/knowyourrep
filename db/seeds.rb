@@ -27,8 +27,9 @@ end
 def index_polits
   @raw_data.each_with_index do |row,idx|
     @row_data = row.children.text.split("\n")
-    set_values_for_polit(@row_data) if invalid_data(idx)
+    set_values_for_polit if invalid_data(idx)
     @politician = Politician.create(data_hash_for_polit) if invalid_data(idx)
+    create_rep_seats
   end
 end
 
@@ -37,8 +38,8 @@ def invalid_data(idx)
 end
 
 def data_hash_for_reps
-  {district_id: @district, politician_id: @politician,
-   in_office_since: @in_office_since,term_ends: @term_ends
+  {district: @district, politician: @politician,
+   held_since: @held_since,term_ends: @term_ends
    }
 end
 
@@ -51,21 +52,18 @@ def data_hash_for_polit
 end
 
 def set_values_for_polit
-  binding.pry
   @state_district = @row_data[2].split(' ')
   create_states
   create_districts
-  set_names_for_rep
+  set_names_for_polit
   if !@last_name.nil?
     @party = @row_data[5]
     @religion = @row_data[6]
     @prior_experience = @row_data[7]
     @education = [@row_data[8],(@row_data[9] if @row_data[9].to_i == 0), (@row_data[10] if @row_data[10].to_i == 0)].compact.join(', ')
     @birth_year = @row_data.last.to_i
+    @email = "Rep.#{@last_name}@emailcongress.us"
   end
-  # @senate_or_house = 'House of Representatives'
-  # @in_office_since = @row_data[-2].to_i
-  # @email = "Rep.#{@last_name}@emailcongress.us"
 end
 
 def create_districts
@@ -73,12 +71,15 @@ def create_districts
 end
 
 def create_states
-  @state = [@state_district.first, (@state_district[1] if @state_district[1].to_i == 0)].compact.join(' ')
+  @state = [@state_district.first, 
+    (@state_district[1] if @state_district[1].to_i == 0)].compact.join(' ')
   @state = State.create(name: @state)
 end
 
 def create_rep_seats
-  RepresentativeSeat.create(politician: @politician, district: @district)
+  @held_since = @row_data[-2].to_i
+  @term_ends = Time.current.year.even? ? Time.current.year : (Time.current.year + 1)
+  RepresentativeSeat.create(data_hash_for_reps)
 end
 
 def set_names_for_polit
@@ -92,5 +93,8 @@ def set_names_for_polit
   end
 end
 
-
+Politician.destroy_all
+RepresentativeSeat.destroy_all
+State.destroy_all
+District.destroy_all
 run

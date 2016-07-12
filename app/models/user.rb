@@ -3,6 +3,6 @@ class User < ApplicationRecord
   has_many :messages
   belongs_to :district
   belongs_to :state
-  belongs_to :representative
-  has_many :senators
+  has_one :representative_seat
+  has_many :senator_seats
 end
