@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class CongressmenControllerTest < ActionDispatch::IntegrationTest
+class RepresentativeTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
