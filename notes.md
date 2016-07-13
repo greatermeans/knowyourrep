@@ -3,7 +3,7 @@ review relationships
 add sessions and passwords to user
 establish sessions controller
 
-at large districts
+6 at large districts: WY, AL, DE, ND, SD, VT
 
 Missing Images:
 Error bad argument (expected URI object or URI string) for Mike Rogers

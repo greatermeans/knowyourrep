@@ -114,7 +114,19 @@ end
 
 
 def state_abbreviation_hash
- {"Alabama" => "AL", "Alaska" => "AK", "Arizona" => "AZ", "Arkansas" => "AR", "California" => "CA",  "Colorado" => "CO", "Connecticut" => "CT", "Delaware" => "DE", "Florida" => "FL", "Georgia" => "GA", "Hawaii" => "HI", "Idaho" => "ID", "Illinois" => "IL", "Indiana" => "IN", "Iowa" => "IA", "Kansas" => "KS", "Kentucky" => "KY", "Louisiana" => "LA", "Maine" => "ME", "Maryland" => "MD", "Massachusetts" => "MA", "Michigan" => "MI", "Minnesota" => "MN", "Mississippi" => "MS", "Missouri" => "MO", "Montana" => "MT", "Nebraska" => "NE", "Nevada" => "NV", "New Hampshire" => "NH", "New Jersey" => "NJ", "New Mexico" => "NM", "New York" => "NY", "North Carolina" => "NC", "North Dakota" => "ND", "Ohio" => "OH", "Oklahoma" => "OK", "Oregon" => "OR", "Pennsylvania" => "PA", "Rhode Island" => "RI", "South Carolina" => "SC", "South Dakota" => "SD", "Tennessee" => "TN", "Texas" => "TX", "Utah" => "UT", "Vermont" => "VT", "Virginia" => "VA", "Washington" => "WA", "West Virginia" => "WV", "Wisconson" => "WI", "Wyomning" => "WY"}
+ {"Alabama" => "AL", "Alaska" => "AK", "Arizona" => "AZ", "Arkansas" => "AR", 
+  "California" => "CA",  "Colorado" => "CO", "Connecticut" => "CT", "Delaware" => "DE", 
+  "Florida" => "FL", "Georgia" => "GA", "Hawaii" => "HI", "Idaho" => "ID", "Illinois" => "IL", 
+  "Indiana" => "IN", "Iowa" => "IA", "Kansas" => "KS", "Kentucky" => "KY", "Louisiana" => "LA", 
+  "Maine" => "ME", "Maryland" => "MD", "Massachusetts" => "MA", "Michigan" => "MI", 
+  "Minnesota" => "MN", "Mississippi" => "MS", "Missouri" => "MO", "Montana" => "MT", 
+  "Nebraska" => "NE", "Nevada" => "NV", "New Hampshire" => "NH", "New Jersey" => "NJ", 
+  "New Mexico" => "NM", "New York" => "NY", "North Carolina" => "NC", "North Dakota" => "ND", 
+  "Ohio" => "OH", "Oklahoma" => "OK", "Oregon" => "OR", "Pennsylvania" => "PA", 
+  "Rhode Island" => "RI", "South Carolina" => "SC", "South Dakota" => "SD", 
+  "Tennessee" => "TN", "Texas" => "TX", "Utah" => "UT", "Vermont" => "VT", 
+  "Virginia" => "VA", "Washington" => "WA", "West Virginia" => "WV", 
+  "Wisconsin" => "WI", "Wyoming" => "WY"}
 end
 
 
@@ -125,3 +137,13 @@ District.destroy_all
 SenateSeat.destroy_all
 run
 run_sen
+District.create(name: '10',state:(State.find_by(name:'Pennsylvania')))
+
+User.create(name: 'Jon Log', password: 'one', email: 'jonlog@gmail.com', street_address: '11 Broadway', city: 'New York', state: State.find_by(name: 'New York'), district: '1')
+User.create(name: 'Jeremy Won', password: 'one', email: 'jeremywon@aol.com', street_address: '2611 N Central Ave', city: 'Phoenix', state: State.find_by(name: 'Arizona'), district: '1')
+User.create(name: 'Lea Bent', password: 'one', email: 'leabent@gmail.com', street_address: '15 Twilight Dr', city: 'Foxboro', state: State.find_by(name: 'Massachusetts'), district: '1')
+User.create(name: 'Irene Left', password: 'one', email: 'ireneleft@gmail.com', street_address: '132 N Main St', city: 'Concord', state: State.find_by(name: 'New Hampshire'), district: '1')
+User.create(name: 'Willy Wonka', password: 'one', email: 'willywonka@gmail.com', street_address: '2801 Main St', city: 'Irvine', state: State.find_by(name: 'California'), district: '1')
+
+
+
