@@ -22,6 +22,7 @@ end
 def get_reps
   page = @scraper.get(reps_feed)
   @raw_data = page.search('tr')
+  binding.pry
 end
 
 def index_reps
