@@ -21,9 +21,9 @@ class User < ApplicationRecord
   		@results_page = search_form.submit
   		@district_num = @results_page.search('p').text.split("\n")[9].scan(/[0-9]+/).first
 	 end
-
-	district = District.find_by(name: @district_num, state: state)
-
+	self.district = District.find_by(name: @district_num, state: state)
+  binding.pry
+  self.save
   end
 
   def representative

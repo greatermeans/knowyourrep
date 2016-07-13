@@ -136,13 +136,19 @@ District.destroy_all
 SenateSeat.destroy_all
 run
 run_sen
-District.create(name: '10',state:(State.find_by(name:'Pennsylvania')))
+District.find_or_create_by(name: '10',state:(State.find_by(name:'Pennsylvania')))
 
-User.create(name: 'Jon Log', password: 'one', email: 'jonlog@gmail.com', street_address: '11 Broadway', city: 'New York', state: State.find_by(name: 'New York'), district: '1')
-User.create(name: 'Jeremy Won', password: 'one', email: 'jeremywon@aol.com', street_address: '2611 N Central Ave', city: 'Phoenix', state: State.find_by(name: 'Arizona'), district: '1')
-User.create(name: 'Lea Bent', password: 'one', email: 'leabent@gmail.com', street_address: '15 Twilight Dr', city: 'Foxboro', state: State.find_by(name: 'Massachusetts'), district: '1')
-User.create(name: 'Irene Left', password: 'one', email: 'ireneleft@gmail.com', street_address: '132 N Main St', city: 'Concord', state: State.find_by(name: 'New Hampshire'), district: '1')
-User.create(name: 'Willy Wonka', password: 'one', email: 'willywonka@gmail.com', street_address: '2801 Main St', city: 'Irvine', state: State.find_by(name: 'California'), district: '1')
+jon = User.new(name: 'Jon Log', password: 'one', email: 'jonlog@gmail.com', street_address: '11 Broadway', city: 'New York', state: State.find_by(name: 'New York'))
+jeremy = User.new(name: 'Jeremy Won', password: 'one', email: 'jeremywon@aol.com', street_address: '2611 N Central Ave', city: 'Phoenix', state: State.find_by(name: 'Arizona'))
+lea = User.new(name: 'Lea Bent', password: 'one', email: 'leabent@gmail.com', street_address: '15 Twilight Dr', city: 'Foxboro', state: State.find_by(name: 'Massachusetts'))
+irene = User.new(name: 'Irene Left', password: 'one', email: 'ireneleft@gmail.com', street_address: '132 N Main St', city: 'Concord', state: State.find_by(name: 'New Hampshire'))
+willy = User.new(name: 'Willy Wonka', password: 'one', email: 'willywonka@gmail.com', street_address: '2801 Main St', city: 'Irvine', state: State.find_by(name: 'California'))
+
+jon.get_district
+jeremy.get_district
+lea.get_district
+irene.get_district
+willy.get_district
 
 
 
