@@ -1,0 +1,9 @@
+<h1>Politicians</h1>
+
+<br>
+<br>
+
+<% @politicians.each do |politician| %>
+	<p><h3><%= politician.full_name %></h3></p>
+	<p><%= politician.senate_or_house %></p>
+<% end %>
