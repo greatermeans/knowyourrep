@@ -28,6 +28,7 @@ def index_sens
   get_senators.each do |senator|
     @senator = senator
     set_values_for_sens
+    # grab_photos_sen
     @new_pol = Politician.create(data_hash_for_polit_sen)
     SenateSeat.create(data_hash_for_senator)
   end
@@ -74,3 +75,20 @@ def set_names_for_sens
   end
 end
 
+def polit_url_sen
+  "https://en.wikipedia.org/wiki/#{@first_name.split(' ').join('_')}_#{@last_name}"
+end
+
+def grab_photos_sen
+  begin
+    root_dir = Rails.root.join('app','assets','images',[@first_name,
+                                                      @last_name + '.jpg'].join('_'))
+    sources = Nokogiri::HTML(open(polit_url_sen)).xpath("//img/@src")
+    src = sources.find {|source| source if source.value.scan(@first_name).count > 0}
+    uri = URI.join( polit_url_sen, src ).to_s
+
+    File.open(root_dir,'wb') { |f| f.write(open(uri).read)}
+  rescue Exception => e
+    puts "Error #{e} for #{@first_name} #{@last_name}"
+  end
+end

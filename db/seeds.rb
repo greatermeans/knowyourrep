@@ -17,15 +17,18 @@ end
 def get_reps
   page = @scraper.get(reps_feed)
   @raw_data = page.search('tr')
-  binding.pry
 end
 
 def index_polits
   @raw_data.each_with_index do |row,idx|
     @row_data = row.children.text.split("\n")
-    set_values_for_polit if invalid_data(idx)
-    @politician = Politician.create(data_hash_for_polit) if invalid_data(idx)
-    create_rep_seats
+    if invalid_data(idx)
+      set_values_for_polit 
+      @url = 'https://en.wikipedia.org' + row.search('a')[2].attributes.first.last.value
+      # grab_photos
+      @politician = Politician.create(data_hash_for_polit)
+      create_rep_seats
+    end
   end
 end
 
@@ -67,9 +70,11 @@ def create_districts
 end
 
 def create_states
-  @state = [@state_district.first,
-            (@state_district[1] if @state_district[1].to_i == 0)].compact.join(' ')
-  @state = State.find_or_create_by(name: @state)
+ @state = [@state_district.first,
+           (@state_district[1] if @state_district[1].to_i == 0)].compact.join(' ')
+ @state = State.find_or_create_by(name: @state)
+ @state.abbreviation = state_abbreviation_hash["#{@state.name}"]
+ @state.save
 end
 
 def create_rep_seats
@@ -79,43 +84,44 @@ def create_rep_seats
 end
 
 def set_names_for_polit
-  names_data = @row_data[4].scan(/\w+/)
-  return if names_data.count == 1
-  @last_name = names_data[0]
-  if names_data.length > 3
-    @first_name = names_data[1] + names_data[2]
+  @names_data = @row_data[4].scan(/\w+/)
+  return if @names_data.count == 1
+  @last_name = @names_data[0]
+  if @names_data.length > 3
+    @first_name = @names_data[1] + @names_data[2]
   else
-    @first_name = names_data[1][0...(names_data[1].length / 2)]
-  end
-end
-
-def get_photos
-  Politician.all.each do |politician|
-    @politician = politician
-    grab_photos
+    @first_name = @names_data[1][0...(@names_data[1].length / 2)]
   end
 end
 
 def grab_photos
-  root_dir = Rails.root.join('app','assets','images',[@politician.first_name,
-                                                      @politician.last_name + '.jpg'].join('_'))
-  binding.pry
-  src = Nokogiri::HTML(open(polit_url)).xpath("//img/@src").first
-  uri = URI.join( polit_url, src ).to_s
-
-  File.open(root_dir,'wb') { |f| f.write(open(uri).read)}
+  begin
+    root_dir = Rails.root.join('app','assets','images',[@first_name,
+                                                      @last_name + '.jpg'].join('_'))
+    sources = Nokogiri::HTML(open(polit_url)).xpath("//img/@src")
+    src = sources.find {|source| source if source.value.scan(@first_name).count > 0}
+    uri = URI.join( polit_url, src ).to_s
+    ury = URI.join( @url, src ).to_s
+    File.open(root_dir,'wb') { |f| f.write(open(ury).read)}
+  rescue Exception => e
+    puts "Error #{e} for #{@first_name} #{@last_name}"
+  end
 end
 
 def polit_url
-  "https://en.wikipedia.org/wiki/#{@politician.first_name.split(' ').join('_')}_#{@politician.last_name}"
+  "https://en.wikipedia.org/wiki/#{@first_name.split(' ').join('_')}_#{@last_name}"
 end
 
 
-# Politician.destroy_all
-# RepresentativeSeat.destroy_all
-# State.destroy_all
-# District.destroy_all
-# SenateSeat.destroy_all
-# run
-get_photos
-# run_sen
+def state_abbreviation_hash
+ {"Alabama" => "AL", "Alaska" => "AK", "Arizona" => "AZ", "Arkansas" => "AR", "California" => "CA",  "Colorado" => "CO", "Connecticut" => "CT", "Delaware" => "DE", "Florida" => "FL", "Georgia" => "GA", "Hawaii" => "HI", "Idaho" => "ID", "Illinois" => "IL", "Indiana" => "IN", "Iowa" => "IA", "Kansas" => "KS", "Kentucky" => "KY", "Louisiana" => "LA", "Maine" => "ME", "Maryland" => "MD", "Massachusetts" => "MA", "Michigan" => "MI", "Minnesota" => "MN", "Mississippi" => "MS", "Missouri" => "MO", "Montana" => "MT", "Nebraska" => "NE", "Nevada" => "NV", "New Hampshire" => "NH", "New Jersey" => "NJ", "New Mexico" => "NM", "New York" => "NY", "North Carolina" => "NC", "North Dakota" => "ND", "Ohio" => "OH", "Oklahoma" => "OK", "Oregon" => "OR", "Pennsylvania" => "PA", "Rhode Island" => "RI", "South Carolina" => "SC", "South Dakota" => "SD", "Tennessee" => "TN", "Texas" => "TX", "Utah" => "UT", "Vermont" => "VT", "Virginia" => "VA", "Washington" => "WA", "West Virginia" => "WV", "Wisconson" => "WI", "Wyomning" => "WY"}
+end
+
+
+Politician.destroy_all
+RepresentativeSeat.destroy_all
+State.destroy_all
+District.destroy_all
+SenateSeat.destroy_all
+run
+run_sen
