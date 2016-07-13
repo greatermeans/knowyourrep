@@ -1,0 +1,28 @@
+<h1>Welcome to your homepage!</h1>
+
+<h3>Your information:</h3>
+
+<ul>
+  <li>Name: <%= @user.name %></li>
+  <li>Address: <%= "#{@user.street_address}, #{user.city.name}, #{user.state.name} #{user.zipcode}" %></li>
+</ul>
+
+<h3>Your Representatives</h3>
+
+<table>
+  <tr>
+    <th>Representative</th>
+    <th>Senator 1</th>
+    <th>Senator 2</th>
+  </tr>
+  <tr>
+    <td><!--insert rep picture --></td>
+    <td><!--insert sen1 picture --></td>
+    <td><!--insert sen2 picture --></td>
+  </tr>
+  <tr>
+    <td><%= @user.district.representative_seat.name %></td>
+    <td><!--senator 1 name --></td>
+    <td><!--senator 2 name --></td>
+  </tr>
+</table>
