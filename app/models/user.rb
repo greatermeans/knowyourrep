@@ -20,12 +20,23 @@ class User < ApplicationRecord
   		end
   		@results_page = search_form.submit
   		@district_num = @results_page.search('p').text.split("\n")[9].scan(/[0-9]+/).first
-	end
+	 end
 
 	district = District.find_by(name: @district_num, state: state)
 
   end
 
+  def representative
+    district.representative_seat.politician
+  end
+
+  def senator1
+    state.senate_seats[0].politician
+  end
+
+  def senator2
+    state.senate_seats[1].politician
+  end
 end
 
 #find or create by states / districts
