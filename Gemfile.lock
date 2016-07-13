@@ -57,6 +57,7 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.2)
+    crass (1.0.2)
     debug_inspector (0.0.2)
     diff-lcs (1.2.5)
     domain_name (0.5.20160615)
@@ -108,6 +109,8 @@ GEM
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
       pkg-config (~> 1.1.7)
+    nokogumbo (1.4.7)
+      nokogiri
     ntlm-http (0.1.1)
     pkg-config (1.1.7)
     pry (0.10.3)
@@ -165,6 +168,10 @@ GEM
       rspec-mocks (~> 3.5.0)
       rspec-support (~> 3.5.0)
     rspec-support (3.5.0)
+    sanitize (4.0.1)
+      crass (~> 1.0.2)
+      nokogiri (>= 1.4.4)
+      nokogumbo (~> 1.4.1)
     sass (3.4.22)
     sass-rails (5.0.5)
       railties (>= 4.0.0, < 6)
@@ -227,6 +234,7 @@ DEPENDENCIES
   puma (~> 3.0)
   rails (~> 5.0.0)
   rspec-rails
+  sanitize
   sass-rails (~> 5.0)
   spring
   spring-watcher-listen (~> 2.0.0)

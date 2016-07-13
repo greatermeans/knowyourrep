@@ -1,4 +1,4 @@
-#wtf
+require_relative 'senseeds.rb'
 
 def run
   set_scraper
@@ -8,26 +8,6 @@ end
 
 def set_scraper
   @scraper = Mechanize.new
-end
-
-def polit_url(politician)
-  "https://en.wikipedia.org/wiki/#{politician.first_name.split(' ').join('_')}_#{politician.last_name}"
-end
-
-def get_photos
-  set_scraper
-  Politician.all.each do |politician|
-    page = @scraper.get(polit_url(politician))
-  end
-end
-
-def grab_photos
-  root_dir = Rails.root.join('app','assets','images',[politician.first_name,
-                                                      politician.last_name + '.jpg'].join('_'))
-  src = Nokogiri::HTML(open(polit_url(politician))).xpath("//img/@src").first
-  uri = URI.join( polit_url(politician), src ).to_s
-
-  File.open(root_dir,'wb') { |f| f.write(open(uri).read)}
 end
 
 def reps_feed
@@ -109,10 +89,33 @@ def set_names_for_polit
   end
 end
 
-Politician.destroy_all
-RepresentativeSeat.destroy_all
-State.destroy_all
-District.destroy_all
-run
+def get_photos
+  Politician.all.each do |politician|
+    @politician = politician
+    grab_photos
+  end
+end
 
-# get_photos
+def grab_photos
+  root_dir = Rails.root.join('app','assets','images',[@politician.first_name,
+                                                      @politician.last_name + '.jpg'].join('_'))
+  binding.pry
+  src = Nokogiri::HTML(open(polit_url)).xpath("//img/@src").first
+  uri = URI.join( polit_url, src ).to_s
+
+  File.open(root_dir,'wb') { |f| f.write(open(uri).read)}
+end
+
+def polit_url
+  "https://en.wikipedia.org/wiki/#{@politician.first_name.split(' ').join('_')}_#{@politician.last_name}"
+end
+
+
+# Politician.destroy_all
+# RepresentativeSeat.destroy_all
+# State.destroy_all
+# District.destroy_all
+# SenateSeat.destroy_all
+# run
+get_photos
+# run_sen

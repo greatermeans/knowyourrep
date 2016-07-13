@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160712215041) do
+ActiveRecord::Schema.define(version: 20160713165500) do
 
   create_table "districts", force: :cascade do |t|
     t.string   "name"
@@ -54,11 +54,11 @@ ActiveRecord::Schema.define(version: 20160712215041) do
   create_table "senate_seats", force: :cascade do |t|
     t.integer  "politician_id"
     t.integer  "state_id"
-    t.integer  "class"
     t.integer  "held_since"
     t.integer  "term_ends"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
+    t.integer  "class_num"
   end
 
   create_table "states", force: :cascade do |t|
