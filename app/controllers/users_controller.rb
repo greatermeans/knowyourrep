@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     @user.state = State.find_by(abbreviation: params[:user][:state])
-    @user.district = get_district
+    @user.district = @user.get_district
     @user.save
     login(@user)
     flash[:message] = 'Welcome to Know Your Rep! You have successfully created an account.'

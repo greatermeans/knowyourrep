@@ -15,7 +15,7 @@ class User < ApplicationRecord
   	scraper.get(form_url) do |search_page|
   		search_form = search_page.form_with(name: 'address') do |search|
   			search['city'] = city
-  			search['street'] = address
+  			search['street'] = street_address
   			search['state'] = state.abbreviation + state.name
   		end
   		@results_page = search_form.submit
