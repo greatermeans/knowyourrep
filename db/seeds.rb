@@ -88,7 +88,7 @@ end
 def create_states
   @state = [@state_district.first,
             (@state_district[1] if @state_district[1].to_i == 0)].compact.join(' ')
-  @state = State.create(name: @state)
+  @state = State.find_or_create_by(name: @state)
 end
 
 def create_rep_seats
@@ -108,10 +108,10 @@ def set_names_for_polit
   end
 end
 
-# Politician.destroy_all
-# RepresentativeSeat.destroy_all
-# State.destroy_all
-# District.destroy_all
-# run
+Politician.destroy_all
+RepresentativeSeat.destroy_all
+State.destroy_all
+District.destroy_all
+run
 
-get_photos
+# get_photos
