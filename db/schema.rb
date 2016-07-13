@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160713165500) do
+ActiveRecord::Schema.define(version: 20160713215238) do
 
   create_table "districts", force: :cascade do |t|
     t.string   "name"
@@ -36,7 +36,6 @@ ActiveRecord::Schema.define(version: 20160713165500) do
     t.string   "education"
     t.integer  "birth_year"
     t.string   "email"
-    t.integer  "state_id"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.boolean  "in_office?",       default: false
