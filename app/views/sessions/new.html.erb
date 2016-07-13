@@ -1,8 +1,15 @@
 <%= flash[:message] %>
 
+<h1>Welcome to Know Your Rep!</h1>
+<h3>Please log in below or click sign up to create a new account.</h3>
+
+<h4>Log in</h4>
 <%= form_tag '/sessions' do %>
   <%= label_tag :email %>
   <%= text_field_tag 'user[email]' %>
+  <%= label_tag :password %>
   <%= password_field_tag 'user[password]' %>
   <%= submit_tag %>
 <% end %>
+</br>
+<%= button_to 'Sign Up', 'users/new', method: 'get' %>
