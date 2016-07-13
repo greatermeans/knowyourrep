@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_before_action :login_required, only: [:new, :create]
 
   def new
     @user = User.new
@@ -6,13 +7,19 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    @user.state_id = State.find_by(abbreviation: params[user][state]).id
-    # need to figure out how to get district id.
+    @user.state = State.find_by(abbreviation: params[:user][:state])
+    @user.district = get_district
     @user.save
+    login(@user)
+    flash[:message] = 'Welcome to Know Your Rep! You have successfully created an account.'
+    redirect_to user_path(@user)
+
   end
 
   def show
-    @user = User.find(params[:id])
+    if params[:id] == current_user.id.to_s
+      @user = User.find(params[:id])
+    end
   end
 
   def update
@@ -34,5 +41,6 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:name, :street_address, :city, :zipcode, :email)
+  end
 
 end

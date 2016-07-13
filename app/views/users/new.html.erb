@@ -1,0 +1,21 @@
+<h3>Please create your account below</h3>
+<%= form_for @user do |f| %>
+  <p><%= f.label :email %></p>
+  <p><%= f.text_field :email %></p>
+  <p><%= f.label :password %></p>
+  <p><%= f.password_field :password %></p>
+  <p><%= f.label :password_confirmation %></p>
+  <p><%= f.password_field :password_confirmation %></p>
+  </br>
+  <p><%= f.label :name %></p>
+  <p><%= f.text_field :name %></p>
+  <p><%= f.label :street_address %></p>
+  <p><%= f.text_field :street_address %></p>
+  <p><%= f.label :city %></p>
+  <p><%= f.text_field :city %></p>
+  <p><%= f.label :state %></p>
+  <p><%= f.text_field :state %></p>
+  <p><%= f.label :zipcode %></p>
+  <p><%= f.text_field :zipcode %></p>
+  <%= f.submit %>
+<% end %>
