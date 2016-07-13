@@ -45,8 +45,7 @@ end
 def data_hash_for_polit
   {first_name: @first_name, last_name: @last_name, party: @party,
    prior_experience: @prior_experience, education: @education,
-   birth_year: @birth_year, email: @email,
-   state: @state, in_office?: @in_office
+   birth_year: @birth_year, email: @email, in_office?: @in_office
    }
 end
 

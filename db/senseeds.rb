@@ -38,7 +38,7 @@ def data_hash_for_polit_sen
   {first_name: @first_name,
    last_name: @last_name, party: @party,
    prior_experience: @prior_experience, education: @education,
-   birth_year: @birth_year, email: @email, state_id:@state.id}
+   birth_year: @birth_year, email: @email}
 end
 
 def data_hash_for_senator
