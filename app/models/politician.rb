@@ -3,7 +3,6 @@ class Politician < ApplicationRecord
   has_one :senator_seat
   has_many :messages
   belongs_to :state
-  belongs_to :district
 
   def full_name
   	[first_name, last_name].join(' ')
@@ -23,6 +22,6 @@ class Politician < ApplicationRecord
 
   def house
   	"Member of the United States House of Representatives from #{state.name}'s 
-  	#{representative_seat.district.name.to_i.ordinalize} district"
+  		#{representative_seat.district.name.to_i.ordinalize} district"
   end
 end

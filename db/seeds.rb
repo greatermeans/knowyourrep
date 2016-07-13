@@ -10,6 +10,26 @@ def set_scraper
   @scraper = Mechanize.new
 end
 
+def polit_url(politician)
+  "https://en.wikipedia.org/wiki/#{politician.first_name.split(' ').join('_')}_#{politician.last_name}"
+end
+
+def get_photos
+  set_scraper
+  Politician.all.each do |politician|
+    page = @scraper.get(polit_url(politician))
+  end
+end
+
+def grab_photos
+  root_dir = Rails.root.join('app','assets','images',[politician.first_name,
+                                                      politician.last_name + '.jpg'].join('_'))
+  src = Nokogiri::HTML(open(polit_url(politician))).xpath("//img/@src").first
+  uri = URI.join( polit_url(politician), src ).to_s
+
+  File.open(root_dir,'wb') { |f| f.write(open(uri).read)}
+end
+
 def reps_feed
   'https://en.wikipedia.org/wiki/Current_members_of_the_United_States_House_of_Representatives'
 end
@@ -40,8 +60,8 @@ end
 
 def data_hash_for_polit
   {first_name: @first_name, last_name: @last_name, party: @party,
-   prior_experience: @prior_experience, education: @education, 
-   birth_year: @birth_year, email: @email, 
+   prior_experience: @prior_experience, education: @education,
+   birth_year: @birth_year, email: @email,
    state: @state, in_office?: @in_office
    }
 end
@@ -66,8 +86,8 @@ def create_districts
 end
 
 def create_states
-  @state = [@state_district.first, 
-    (@state_district[1] if @state_district[1].to_i == 0)].compact.join(' ')
+  @state = [@state_district.first,
+            (@state_district[1] if @state_district[1].to_i == 0)].compact.join(' ')
   @state = State.create(name: @state)
 end
 
@@ -88,8 +108,10 @@ def set_names_for_polit
   end
 end
 
-Politician.destroy_all
-RepresentativeSeat.destroy_all
-State.destroy_all
-District.destroy_all
-run
+# Politician.destroy_all
+# RepresentativeSeat.destroy_all
+# State.destroy_all
+# District.destroy_all
+# run
+
+get_photos
