@@ -26,6 +26,10 @@ class User < ApplicationRecord
   self.save
   end
 
+  def state
+    district.state
+  end
+
   def representative
     binding.pry
     district.representative_seat.politician
