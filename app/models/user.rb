@@ -2,6 +2,12 @@ class User < ApplicationRecord
   has_secure_password
   belongs_to :district
   has_many :messages
+  validates :email, presence: true, uniqueness: true
+  validates :password, presence: true
+  validates :street_address, presence: true
+  validates :state, presence: true
+  validates :city, presence: true
+
   # belongs_to :state
   include DistrictFinder
 
