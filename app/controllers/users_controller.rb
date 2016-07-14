@@ -9,8 +9,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.get_district
     @user.save
-    if @user.errors.messages[:email]
-      flash.now[:message] = 'That email address already exists'
+    if @user.errors.messages
+      message_string = @user.errors.full_messages.each_with_object([]) { |error, message_string| message_string << error }
+      flash.now[:message] = message_string.join(", ")
       render new_user_path
     else
       login(@user)
