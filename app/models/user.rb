@@ -1,10 +1,11 @@
 class User < ApplicationRecord
   has_secure_password
-  has_many :messages
   belongs_to :district
   belongs_to :state
-  has_one :representative_seat, through: :district
-  has_many :senate_seats, through: :state
+  has_many :messages
+  # has_many :politicians, through: :messages
+
+  # need method to find user's rep/sen seats
 
   def get_district
   	scraper = Mechanize.new
