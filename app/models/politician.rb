@@ -1,4 +1,5 @@
 class Politician < ApplicationRecord
+
   has_one :representative_seat
   has_one :senate_seat
   has_many :messages

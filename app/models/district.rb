@@ -1,8 +1,9 @@
 class District < ApplicationRecord
-  belongs_to :state
-  has_one :representative_seat
-  has_many :users
-  
+
+	has_many :users
+	has_one :representative_seat
+	belongs_to :state
+
 
 
 end
