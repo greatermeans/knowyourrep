@@ -4,6 +4,7 @@
 <br>
 
 <% @politicians.each do |politician| %>
-	<p><h3><%= politician.full_name %></h3></p>
+	<p><h3><%= link_to politician.full_name, politician_path(politician) %></h3></p>
 	<p><%= politician.senate_or_house %></p>
+	<p><%= image_tag("#{[politician.first_name,politician.last_name].join('_')}.jpg", :alt => "#{[politician.first_name,politician.last_name].join('_')}_photo") %></p>
 <% end %>
