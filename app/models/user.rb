@@ -7,6 +7,7 @@ class User < ApplicationRecord
   validates :street_address, presence: true
   validates :state, presence: true
   validates :city, presence: true
+  validates :name, presence: true
 
   # belongs_to :state
   include DistrictFinder
