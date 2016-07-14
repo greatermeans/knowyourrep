@@ -2,6 +2,10 @@ class SessionsController < ApplicationController
   skip_before_action :login_required, only: [:new, :create]
 
 def new
+  if logged_in?
+    session[:user_id] = nil
+    flash.now[:message] = 'You have been logged out'
+  end
 end
 
 
@@ -13,6 +17,10 @@ def create
   else
     flash.now[:message] = 'Please enter the correct password'
     render 'new'
+  end
+  if user.errors.messages[:email]
+    flash.now[:message] = 'That email address already exists'
+    redirect 'new'
   end
 end
 

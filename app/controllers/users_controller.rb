@@ -9,9 +9,14 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.get_district
     @user.save
-    login(@user)
-    flash[:message] = 'Welcome to Know Your Rep! You have successfully created an account.'
-    redirect_to user_path(@user)
+    if @user.errors.messages[:email]
+      flash.now[:message] = 'That email address already exists'
+      render new_user_path
+    else
+      login(@user)
+      flash[:message] = 'Welcome to Know Your Rep! You have successfully created an account.'
+      redirect_to user_path(@user)
+    end
   end
 
   def show
