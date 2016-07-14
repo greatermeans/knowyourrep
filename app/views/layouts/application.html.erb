@@ -1,14 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Knowyourrep</title>
-    <%= csrf_meta_tags %>
+<head>
+  <title>Know My Rep</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
 
-  <body>
-    <%= yield %>
-  </body>
+<body>
+  <div class="container">
+
+  <ul class="nav nav-pills">
+    <li role="presentation" class="active"><a href="#">Home</a></li>
+    <li role="presentation"><a href="/login">Log In</a></li>
+    <li role="presentation"><a href="/users/new">Sign Up</a></li>
+    <li role="presentation"><a href="/politicians">Politicians</a></li>
+  </ul>
+
+  <%= yield %>
+
+  </div>
+
+</body>
 </html>
+

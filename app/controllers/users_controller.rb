@@ -6,14 +6,13 @@ class UsersController < ApplicationController
   end
 
   def create
+    binding.pry
     @user = User.new(user_params)
-    @user.state = State.find_by(abbreviation: params[:user][:state])
     @user.district = @user.get_district
     @user.save
     login(@user)
     flash[:message] = 'Welcome to Know Your Rep! You have successfully created an account.'
     redirect_to user_path(@user)
-
   end
 
   def show
@@ -40,7 +39,7 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :street_address, :city, :zipcode, :email)
+    params.require(:user).permit(:name, :street_address, :city, :password, :email, :state)
   end
 
 end

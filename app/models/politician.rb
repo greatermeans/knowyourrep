@@ -8,6 +8,10 @@ class Politician < ApplicationRecord
   	[first_name, last_name].join(' ')
   end
 
+  def image_name
+    [first_name, last_name + '.jpg'].join('_')
+  end
+
   def age
   	Time.now.year - birth_year
   end

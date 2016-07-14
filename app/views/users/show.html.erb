@@ -9,7 +9,7 @@
 
 <h3>Your Representatives</h3>
 
-<table>
+<table style="border:1px solid grey">
   <tr>
     <th></th>
     <th>Representative</th>
@@ -18,15 +18,18 @@
   </tr>
   <tr>
     <td>Picture:</td>
-    <td><!--insert rep picture --></td>
-    <td><!--insert sen1 picture --></td>
-    <td><!--insert sen2 picture --></td>
+    <td><%= image_tag("#{@user.representative.image_name}",
+    :alt => "#{@user.representative.image_name}") %></td>
+    <td><%= image_tag("#{@user.senator1.image_name}",
+    :alt => "#{@user.senator1.image_name}") %></td>
+    <td><%= image_tag("#{@user.senator2.image_name}",
+    :alt => "#{@user.senator2.image_name}") %></td>
   </tr>
   <tr>
     <td>Name:</td>
-    <td><%= @user.representative.name %></td>
-    <td><%= @user.senator1.name %></td>
-    <td><%= @user.senator2.name %></td>
+    <td><%= @user.representative.full_name %></td>
+    <td><%= @user.senator1.full_name %></td>
+    <td><%= @user.senator2.full_name %></td>
   </tr>
   <tr>
     <td>District/State:</td>
@@ -60,15 +63,15 @@
   </tr>
   <tr>
     <td>In Office Since:</td>
-    <td><%= @user.representative.held_since %></td>
-    <td><%= @user.senator1.held_since %></td>
-    <td><%= @user.senator2.held_since %></td>
+    <td><%= @user.representative.representative_seat.held_since %></td>
+    <td><%= @user.senator1.senate_seat.held_since %></td>
+    <td><%= @user.senator2.senate_seat.held_since %></td>
   </tr>
   <tr>
     <td>Term Ends:</td>
-    <td><%= @user.representative.term_ends %></td>
-    <td><%= @user.senator1.term_ends %></td>
-    <td><%= @user.senator2.term_ends %></td>
+    <td><%= @user.representative.representative_seat.term_ends %></td>
+    <td><%= @user.senator1.senate_seat.term_ends %></td>
+    <td><%= @user.senator2.senate_seat.term_ends %></td>
   </tr>
   <tr>
     <td>Email:</td>
