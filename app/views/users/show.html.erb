@@ -4,7 +4,7 @@
 
 <ul>
   <li>Name: <%= @user.name %></li>
-  <li>Address: <%= "#{@user.street_address}, #{@user.city}, #{@user.state.name}" %></li>
+  <li>Address: <%= "#{@user.street_address}, #{@user.city}, #{@user.district.state.name}" %></li>
 </ul>
 
 <h3>Your Representatives</h3>
@@ -34,8 +34,8 @@
   <tr>
     <td>District/State:</td>
     <td><%= @user.district.name %></td>
-    <td><%= @user.state.name %></td>
-    <td><%= @user.state.name %></td>
+    <td><%= @user.district.state.name %></td>
+    <td><%= @user.district.state.name %></td>
   </tr>
   <tr>
     <td>Party Affiliation:</td>

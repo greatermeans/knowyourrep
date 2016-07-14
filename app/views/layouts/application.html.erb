@@ -12,7 +12,7 @@
   <div class="container">
 
   <ul class="nav nav-pills">
-    <li role="presentation" class="active"><a href="#">Home</a></li>
+    <li role="presentation" class="active"><a href=<%= user_path(User.find(session[:user_id]))%>>My Homepage</a></li>
     <li role="presentation"><a href="/login">Log In</a></li>
     <li role="presentation"><a href="/users/new">Sign Up</a></li>
     <li role="presentation"><a href="/politicians">Politicians</a></li>

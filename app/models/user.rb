@@ -30,11 +30,11 @@ class User < ApplicationRecord
   end
 
   def senator1
-    state.senate_seats[0].politician
+    district.state.senate_seats[0].politician
   end
 
   def senator2
-    state.senate_seats[1].politician
+    district.state.senate_seats[1].politician
   end
 end
 

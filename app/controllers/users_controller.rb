@@ -6,9 +6,8 @@ class UsersController < ApplicationController
   end
 
   def create
-    binding.pry
     @user = User.new(user_params)
-    @user.district = @user.get_district
+    @user.get_district
     @user.save
     login(@user)
     flash[:message] = 'Welcome to Know Your Rep! You have successfully created an account.'
