@@ -10,8 +10,7 @@ class UsersController < ApplicationController
     @user.get_district
     @user.save
     if @user.errors.messages
-      message_string = @user.errors.full_messages.each_with_object([]) { |error, message_string| message_string << error }
-      flash.now[:message] = message_string.join(", ")
+      flash.now[:message] = @user.errors.full_messages
       render new_user_path
     else
       login(@user)

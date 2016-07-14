@@ -1,4 +1,8 @@
-<%= flash[:message] %>
+<% flash[:message].each do |message| %>
+  <ul>
+    <li><%= message %></li>
+  </ul>
+  <% end %>
 
 <h3>Please create your account below</h3>
 

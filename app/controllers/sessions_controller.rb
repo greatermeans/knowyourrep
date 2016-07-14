@@ -18,10 +18,6 @@ def create
     flash.now[:message] = 'Please enter the correct password'
     render 'new'
   end
-  if user.errors.messages[:email]
-    flash.now[:message] = 'That email address already exists'
-    redirect 'new'
-  end
 end
 
 
