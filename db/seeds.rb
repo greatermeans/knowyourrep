@@ -28,6 +28,9 @@ def index_polits
       # grab_photos
       @politician = Politician.create(data_hash_for_polit)
       create_rep_seats
+
+      @politician.representative_seat = @rep
+      @politician.save
     end
   end
 end
@@ -79,7 +82,7 @@ end
 def create_rep_seats
   @held_since = @row_data[-2].to_i
   @term_ends = Time.current.year.even? ? Time.current.year : (Time.current.year + 1)
-  RepresentativeSeat.create(data_hash_for_reps)
+  @rep = RepresentativeSeat.create(data_hash_for_reps)
 end
 
 def set_names_for_polit
@@ -128,7 +131,7 @@ def state_abbreviation_hash
   "Wisconsin" => "WI", "Wyoming" => "WY"}
 end
 
-
+User.destroy_all
 Politician.destroy_all
 RepresentativeSeat.destroy_all
 State.destroy_all

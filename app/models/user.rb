@@ -3,8 +3,8 @@ class User < ApplicationRecord
   has_many :messages
   belongs_to :district
   belongs_to :state
-  has_one :representative_seat
-  has_many :senate_seats
+  has_one :representative_seat, through: :district
+  has_many :senate_seats, through: :state
 
   def get_district
   	scraper = Mechanize.new
@@ -22,11 +22,11 @@ class User < ApplicationRecord
   		@district_num = @results_page.search('p').text.split("\n")[9].scan(/[0-9]+/).first
 	 end
 	self.district = District.find_by(name: @district_num, state: state)
-  binding.pry
   self.save
   end
 
   def representative
+    binding.pry
     district.representative_seat.politician
   end
 

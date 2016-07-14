@@ -20,7 +20,7 @@ class Politician < ApplicationRecord
   end
 
   def house
-  	"Member of the United States House of Representatives from #{state.name}'s 
+  	"Member of the United States House of Representatives from #{representative_seat.district.state.name}'s 
   		#{representative_seat.district.name.to_i.ordinalize} district"
   end
 end
