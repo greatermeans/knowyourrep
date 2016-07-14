@@ -18,12 +18,9 @@
   </tr>
   <tr>
     <td>Picture:</td>
-    <td><%= image_tag("#{@user.representative.image_name}",
-    :alt => "#{@user.representative.image_name}") %></td>
-    <td><%= image_tag("#{@user.senator1.image_name}",
-    :alt => "#{@user.senator1.image_name}") %></td>
-    <td><%= image_tag("#{@user.senator2.image_name}",
-    :alt => "#{@user.senator2.image_name}") %></td>
+    <td><%= link_to image_tag("#{@user.representative.image_name}"), politician_path(@user.representative) %></td>
+    <td><%= link_to image_tag("#{@user.senator1.image_name}"), politician_path(@user.senator1) %></td>
+    <td><%= link_to image_tag("#{@user.senator2.image_name}"), politician_path(@user.senator2) %></td>
   </tr>
   <tr>
     <td>Name:</td>
