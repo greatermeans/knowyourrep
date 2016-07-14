@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160713222908) do
+ActiveRecord::Schema.define(version: 20160714152838) do
 
   create_table "districts", force: :cascade do |t|
     t.string   "name"
@@ -74,7 +74,6 @@ ActiveRecord::Schema.define(version: 20160713222908) do
     t.string   "email"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.integer  "state_id"
     t.integer  "district_id"
     t.string   "password_digest"
   end

@@ -8,6 +8,10 @@ class User < ApplicationRecord
 
   # need method to find user's rep/sen seats
 
+  def state
+    district.state
+  end
+
   def set_district
     get_district
   end
