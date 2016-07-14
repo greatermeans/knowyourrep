@@ -1,0 +1,12 @@
+<div class="panel panel-default col-xs-4">
+  <div class="panel-body">
+    <p><h4>Name: <%= politician.full_name  %></h4></p>
+    <p>Political Party: <%= politician.party %></p>
+	<p>Prior Experience: <%= politician.prior_experience %></p>
+	<p>Education: <%= politician.education %></p>
+	<p>Email: <%= politician.email %></p>
+	<p><%= politician.senate_or_house %></p>
+    <p><%= image_tag("#{@user.representative.image_name}",
+    :alt => "#{@user.representative.image_name}") %></p>
+  </div>
+</div>

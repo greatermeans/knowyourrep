@@ -6,15 +6,6 @@ class User < ApplicationRecord
   include DistrictFinder
 
   attr_accessor :state
-  
-  # has_many :politicians, through: :messages
-
-  # need method to find user's rep/sen seats
-
-  # def state
-  #   self.state
-  #   # district.nil? ? '' : district.state
-  # end
 
   def state=(state)
     @state = State.find(state)
