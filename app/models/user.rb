@@ -4,7 +4,7 @@ class User < ApplicationRecord
   belongs_to :district
   belongs_to :state
   has_one :representative_seat
-  has_many :senator_seats
+  has_many :senate_seats
 
   def get_district
   	scraper = Mechanize.new

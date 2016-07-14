@@ -1,8 +1,7 @@
 class Politician < ApplicationRecord
   has_one :representative_seat
-  has_one :senator_seat
+  has_one :senate_seat
   has_many :messages
-  belongs_to :state
 
   def full_name
   	[first_name, last_name].join(' ')
