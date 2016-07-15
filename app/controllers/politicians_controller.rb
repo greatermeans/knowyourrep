@@ -6,7 +6,6 @@ class PoliticiansController < ApplicationController
 
   def index
   	if !params['query'].nil?
-  	  binding.pry
       @politicians = Politician.send(search_method,search_value).send(filter_method)
     else
       @politicians = Politician.order('Random()').first(9)

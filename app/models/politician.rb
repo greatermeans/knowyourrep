@@ -34,15 +34,15 @@ class Politician < ApplicationRecord
   ##QUERIES ADD ^ HERE
 
 
-  def republican
+  def self.republican
     where(party: 'Republican')
   end
 
-  def democrat
+  def self.democrat
     where(party: 'Democrat')
   end
 
-  def house_of_reps
+  def self.house_of_reps
     joins(:representative_seat)
   end
 
@@ -51,19 +51,19 @@ class Politician < ApplicationRecord
   end
 
   def self.polit_over_an_age(age)
-    where('birth_year > ?',"#{Time.now.year - age}")
+    where('birth_year > ?',"#{Time.now.year - age.to_i}")
   end
 
   def self.polit_under_an_age(age)
-    where('birth_year < ?',"#{Time.now.year - age}")
+    where('birth_year > ?',"#{Time.now.year - age.to_i}")
   end
 
   def self.polit_over_an_age(age)
-    where('birth_year > ?',"#{Time.now.year - age}")
+    where('birth_year < ?',"#{Time.now.year - age.to_i}")
   end
 
-  def self.polit_by(age)
-    where('birth_year = ?',"#{Time.now.year - age}")
+  def self.polit_by_age(age)
+    where('birth_year = ?',"#{Time.now.year - age.to_i}")
   end
 
   def self.polit_by_education(school)
