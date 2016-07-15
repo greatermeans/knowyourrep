@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.get_district
     @user.save
-    if @user.errors.messages
+    if @user.errors.messages.present?
       flash.now[:message] = @user.errors.full_messages
       render new_user_path
     else
