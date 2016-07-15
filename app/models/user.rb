@@ -31,4 +31,34 @@ class User < ApplicationRecord
   end
 end
 
+
+# require_relative '../rails_helper.rb'
+# require_relative '../spec_helper.rb'
+
+# RSpec.describe User, type: :model do
+
+#   describe 'User' do
+#     let(:user) { FactoryGirl.create :user }
+#     it 'can be created' do
+#       expect(user).to be_valid
+#     end
+#   end
+
+
+# end
+
+
+# FactoryGirl.define do
+#   factory :user do
+#     name "Fred"
+#     email "fred@fred.com"
+#     street_address "14 bushy ridge rd."
+#     city "Westport"
+#     state "State.find_by(name: 'Connecticut')"
+#     password "one"
+#     district_id "583"
+#   end
+# end
+
+
 #find or create by states / districts
