@@ -11,7 +11,7 @@ class UsersController < ApplicationController
     @user.save
     if @user.errors.messages.present?
       flash.now[:message] = @user.errors.full_messages
-      render new_user_path
+      render register_path
     else
       login(@user)
       flash[:message] = 'Welcome to Know Your Rep! You have successfully created an account.'
