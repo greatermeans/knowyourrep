@@ -9,6 +9,10 @@ class MessagesController < ApplicationController
 		@message.content = params[:message][:content]
 		@message.user_id = session[:user_id]
 		@message.politician_id = request.referer[34..-1].to_i
-		binding.pry
+		@message.save
+		flash[:alert] = "Post successfully created"
+		sleep 2
+		redirect_to politician_path(Politician.find_by(id: @message.politician_id))
+		flash[:alert] = "Post successfully created"
 	end
 end
