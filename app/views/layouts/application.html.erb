@@ -14,8 +14,8 @@
   <ul class="nav nav-pills">
   <% if !current_user.nil? %>
   <li role="presentation" class="active"><a href=<%= user_path(current_user)%>>My Homepage</a></li>
-  <li role="presentation"><a href="/logout">Log Out</a></li>
   <li role="presentation"><a href="/politicians">Politicians</a></li>
+  <li role="presentation"><a href="/logout">Log Out</a></li>
   <% else %>  
     <li role="presentation"><a href="/users/new">Sign Up</a></li>
   <% end %>

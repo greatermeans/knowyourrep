@@ -1,12 +1,10 @@
-<div class="container">
-    <div class="row">
-        <div class="col-md-2">
-            <%= image_tag("#{politician.image_name}",
-          :alt => "#{politician.image_name}") %>
-        </div>
-        <div class="col-md-10">
-          <h3><%= politician.full_name  %></h3>
-          <p><%= politician.senate_or_house %></p>
-        </div>
+<div class="panel panel-default col-xs-4">
+  <div class="panel-body">
+    <%= link_to image_tag("#{politician.image_name}"), politician_path(politician) %>
+    <h3><%= link_to politician.full_name, politician_path(politician)  %></h3> 
+      <p><%= politician.senate_or_house %></p>
+
     </div>
 </div>
+
+

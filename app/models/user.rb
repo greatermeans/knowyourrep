@@ -5,7 +5,6 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates_presence_of :password, :street_address, :state, :city, :name
 
-  # belongs_to :state
   include DistrictFinder
 
   attr_accessor :state

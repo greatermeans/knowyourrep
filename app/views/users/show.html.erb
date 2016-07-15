@@ -9,88 +9,45 @@
 
 <h3>Your Representatives</h3>
 
-<table style="border:1px solid grey">
-  <tr>
-    <th></th>
-    <th>Representative</th>
-    <th>Senator 1</th>
-    <th>Senator 2</th>
-  </tr>
-  <tr>
-    <td>Picture:</td>
-    <td><%= link_to image_tag("#{@user.representative.image_name}"), politician_path(@user.representative) %></td>
-    <td><%= link_to image_tag("#{@user.senator1.image_name}"), politician_path(@user.senator1) %></td>
-    <td><%= link_to image_tag("#{@user.senator2.image_name}"), politician_path(@user.senator2) %></td>
-  </tr>
-  <tr>
-    <td>Name:</td>
-    <td><%= @user.representative.full_name %></td>
-    <td><%= @user.senator1.full_name %></td>
-    <td><%= @user.senator2.full_name %></td>
-  </tr>
-  <tr>
-    <td>District/State:</td>
-    <td><%= @user.district.name %></td>
-    <td><%= @user.district.state.name %></td>
-    <td><%= @user.district.state.name %></td>
-  </tr>
-  <tr>
-    <td>Party Affiliation:</td>
-    <td><%= @user.representative.party %></td>
-    <td><%= @user.senator1.party %></td>
-    <td><%= @user.senator2.party %></td>
-  </tr>
-  <tr>
-    <td>Prior Experiene:</td>
-    <td><%= @user.representative.prior_experience %></td>
-    <td><%= @user.senator1.prior_experience %></td>
-    <td><%= @user.senator2.prior_experience %></td>
-  </tr>
-  <tr>
-    <td>Education:</td>
-    <td><%= @user.representative.education %></td>
-    <td><%= @user.senator1.education %></td>
-    <td><%= @user.senator2.education %></td>
-  </tr>
-  <tr>
-    <td>Age:</td>
-    <td><%= @user.representative.age %></td>
-    <td><%= @user.senator1.age %></td>
-    <td><%= @user.senator2.age %></td>
-  </tr>
-  <tr>
-    <td>In Office Since:</td>
-    <td><%= @user.representative.representative_seat.held_since %></td>
-    <td><%= @user.senator1.senate_seat.held_since %></td>
-    <td><%= @user.senator2.senate_seat.held_since %></td>
-  </tr>
-  <tr>
-    <td>Term Ends:</td>
-    <td><%= @user.representative.representative_seat.term_ends %></td>
-    <td><%= @user.senator1.senate_seat.term_ends %></td>
-    <td><%= @user.senator2.senate_seat.term_ends %></td>
-  </tr>
-  <tr>
-    <td>Email:</td>
-    <td><%= @user.representative.email %></td>
-    <td><%= @user.senator1.email %></td>
-    <td><%= @user.senator2.email %></td>
-  </tr>
-  <tr>
-    <td>Send Message</td>
-    <td><%= link_to "Send Message", politician_path(@user.representative) %></td>
-    <td><%= link_to "Send Message", politician_path(@user.senator1) %></td>
-    <td><%= link_to "Send Message", politician_path(@user.senator2) %></td>
-  </tr>
+    <div id="main-container" class="container-fluid">
+      <div class="row">
+      <br>
+      <br>
+        <div id="sidebar" class="panel panel-default col-xs-4">
+        <div class="panel body">
+          <%= link_to image_tag("#{@user.representative.image_name}"), politician_path(@user.representative) %>
+          <h3><%= @user.representative.full_name  %></h3>
+          <p>Political Party: <%= @user.representative.party %></p>
+          <p>Prior Experience: <%= @user.representative.prior_experience %></p>
+          <p>Education: <%= @user.representative.education %></p>
+          <p>Email: <%= @user.representative.email %></p>
+          <p><%= @user.representative.senate_or_house %></p>
+          </div>
+        </div>
+        <div id="sidebar" class="panel panel-default col-xs-4">
+        <div class="panel body">
+          <%= link_to image_tag("#{@user.senator1.image_name}"), politician_path(@user.senator1) %>
+          <h3><%= @user.senator1.full_name  %></h3>
+          <p>Political Party: <%= @user.senator1.party %></p>
+          <p>Prior Experience: <%= @user.senator1.prior_experience %></p>
+          <p>Education: <%= @user.senator1.education %></p>
+          <p>Email: <%= @user.senator1.email %></p>
+          <p><%= @user.senator1.senate_or_house %></p>
+          </div>
+        </div>
+        <div id="sidebar" class="panel panel-default col-xs-4">
+        <div class="panel body">
+          <%= link_to image_tag("#{@user.senator2.image_name}"), politician_path(@user.senator2) %>
+          <h3><%= @user.senator2.full_name  %></h3>
+          <p>Political Party: <%= @user.senator2.party %></p>
+          <p>Prior Experience: <%= @user.senator2.prior_experience %></p>
+          <p>Education: <%= @user.senator2.education %></p>
+          <p>Email: <%= @user.senator2.email %></p>
+          <p><%= @user.senator2.senate_or_house %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  <br>
 
-<!--     <tr>
-    <td>Send Message</td>
-    <td><a href="<%= politician_path(@user.representative) %>"><button>Send Message</button></a></td>
-    <td><a href="<%= politician_path(@user.senator1) %>"><button>Send Message</button></a></td>
-    <td><a href="<%= politician_path(@user.senator2) %> %>"><button>Send Message</button></a></td>
-  </tr> -->
-  <!--     t.string   "prior_experience"
-    t.string   "education"
-    t.integer  "birth_year"
-    t.string   "email" -->
-</table>
