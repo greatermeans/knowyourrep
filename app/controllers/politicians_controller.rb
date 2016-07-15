@@ -19,7 +19,7 @@ class PoliticiansController < ApplicationController
   end
 
   def search_method
-  	query_params.values[2].split.map(&:downcase).unshift('polit').join('_')
+  	query_params.values[2].scan(/[[:word:]]+/).map(&:downcase).unshift('polit').join('_')
   end
 
   def search_value
