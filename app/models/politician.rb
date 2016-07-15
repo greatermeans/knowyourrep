@@ -28,4 +28,48 @@ class Politician < ApplicationRecord
   	"Member of the United States House of Representatives from #{representative_seat.district.state.name}'s 
   		#{representative_seat.district.name.to_i.ordinalize} district"
   end
+
+  SEARCH_BY = ['Over An Age','Under An Age','By Age','By Education'] 
+  FILTER_BY = ['Senators','House of Reps','Democrat','Republican','All']
+  ##QUERIES ADD ^ HERE
+
+
+  def republican
+    where(party: 'Republican')
+  end
+
+  def democrat
+    where(party: 'Democrat')
+  end
+
+  def house_of_reps
+    joins(:representative_seat)
+  end
+
+  def self.senators
+    joins(:senate_seat)
+  end
+
+  def self.polit_over_an_age(age)
+    where('birth_year > ?',"#{Time.now.year - age}")
+  end
+
+  def self.polit_under_an_age(age)
+    where('birth_year < ?',"#{Time.now.year - age}")
+  end
+
+  def self.polit_over_an_age(age)
+    where('birth_year > ?',"#{Time.now.year - age}")
+  end
+
+  def self.polit_by(age)
+    where('birth_year = ?',"#{Time.now.year - age}")
+  end
+
+  def self.polit_by_education(school)
+    Politician.where('education LIKE ?', "%#{school.capitalize}%")
+  end
+
+
+
 end

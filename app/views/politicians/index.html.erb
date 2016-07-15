@@ -1,4 +1,16 @@
+
+<h3>Query All Politicians:</h3>
+<%= form_tag '/politicians', method: "GET" do %>
+<p>Search by:<%= select_tag "query[search_by]", options_for_select(Politician::SEARCH_BY, "by education") %>
+Value: <%= text_field_tag "query[search_value]" %></p>
+<p>Filter By:<%= select_tag "query[filter_by]", options_for_select(Politician::FILTER_BY, "all") %></p>
+<%= submit_tag 'Search' %>
+<% end %>
+
+
 <h1>Politicians</h1>
 <br>
 
-<%= render partial: "politician_profile", collection: @politicians, as: :politician %>
+<%= render partial: "politician_index", collection: @politicians, as: :politician %>
+
+

@@ -30,7 +30,7 @@ gem 'mechanize'
 gem 'nokogiri'
 gem 'binding_of_caller'
 gem 'better_errors'
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '~> 3.3.6'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

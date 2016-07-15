@@ -2,6 +2,10 @@ class SessionsController < ApplicationController
   skip_before_action :login_required, only: [:new, :create]
 
 def new
+  if logged_in?
+    session[:user_id] = nil
+    flash.now[:message] = 'You have been logged out'
+  end
 end
 
 
